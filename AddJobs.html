@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Jobs</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .form-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-container input, .form-container select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background: #045be6;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background: #003fa4;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a href="index.html" class="logo"><img src="images/logo.png" alt=""></a>
+            <div class="search-box">
+                <img src="images/search.png" alt="">
+                <input type="text" placeholder="Search">
+            </div>
+        </div>
+        <div class="navbar-center">
+            <ul>
+                <li><a href="index.html"><img src="images/home.png" alt=""><span>Home</span></a></li>
+                <li><a href="network.html"><img src="images/network.png" alt=""><span>My Network</span></a></li>
+                <li><a href="jobs.html"><img src="images/jobs.png" alt=""><span>Jobs</span></a></li>
+                <li><a href="notifications.html"><img src="images/notification.png" alt=""><span>Notification</span></a></li>
+            </ul>
+        </div>
+        <div class="navbar-right">
+            <div class="online">
+                <img src="images/user-1.png" alt="" class="nav-profile-img">
+            </div>
+        </div>
+    </nav>
+
+    <div class="form-container">
+        <h2>Add a New Job</h2>
+        <form id="addJobForm">
+            <input type="text" id="jobRole" placeholder="Job Role" required>
+            <input type="text" id="jobLocation" placeholder="Location" required>
+            <input type="text" id="jobSalary" placeholder="Salary" required>
+            <textarea id="jobDescription" placeholder="Job Description" required></textarea>
+            <button type="submit">Add Job</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('addJobForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const jobRole = document.getElementById('jobRole').value;
+            const jobLocation = document.getElementById('jobLocation').value;
+            const jobSalary = document.getElementById('jobSalary').value;
+            const jobDescription = document.getElementById('jobDescription').value;
+
+            const newJob = {
+                role: jobRole,
+                location: jobLocation,
+                salary: jobSalary,
+                description: jobDescription
+            };
+
+            let jobs = JSON.parse(localStorage.getItem('jobs')) || [];
+            jobs.push(newJob);
+            localStorage.setItem('jobs', JSON.stringify(jobs));
+
+            alert('Job added successfully!');
+            window.location.href = 'jobs.html';
+        });
+    </script>
+</body>
+</html>
